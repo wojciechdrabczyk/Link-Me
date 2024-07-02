@@ -19,7 +19,7 @@ export default function NavBar({auth}) {
                                 </div>
                                 <div className={"hidden space-x-2 sm:-my-px sm:ms-4 sm:flex "}>
                                     <NavLink href={"/"} active={false} className={"text-gray-700"}>
-                                        Link Me
+                                        Link It
                                     </NavLink>
                                 </div>
                             </div>
