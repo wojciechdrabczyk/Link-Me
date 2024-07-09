@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "dayjs": "^1.11.11",
+        "flowbite-react": "^0.10.1",
         "react-tooltip": "^5.27.1"
     }
 }

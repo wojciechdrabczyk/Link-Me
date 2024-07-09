@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $posts = Post::with('author')->get();
+    $posts = Post::latest()->with('author')->paginate(1);
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -15,7 +15,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'posts' => $posts,
     ]);
-});
+})->name('index');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

@@ -4,6 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import 'react-tooltip/dist/react-tooltip.css'
 import {Tooltip} from 'react-tooltip'
 import advancedFormat from 'dayjs/plugin/advancedFormat';
+import DangerButton from "@/Components/DangerButton.jsx";
 
 export default function Date({post}) {
     dayjs.extend(advancedFormat);

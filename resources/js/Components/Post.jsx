@@ -4,7 +4,7 @@ import Date from "@/Components/Date.jsx";
 
 export default function Post({post}) {
     return (
-        <div key={post.id} className={"p-4 border-b-2 text-xl flex flex-row items-center gap-2"}>
+        <div key={post.id} className={"p-4 border-b-2 text-xl flex flex-row items-center gap-2 px-4 sm:px-6 lg:px-8"}>
             <img src={`https://picsum.photos/id/${post.id}/200/300`} className={"w-[90px] h-[70px] object-cover"} alt="Placeholder image"/>
             <div>
                 <p>
