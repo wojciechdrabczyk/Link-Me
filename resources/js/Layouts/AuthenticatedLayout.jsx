@@ -28,9 +28,9 @@ export default function Authenticated({ user, header, children }) {
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:flex">
-                                <NavLink href={route('dashboard')} className={"px-6"}
-                                         active={route().current('profile')}>
-                                    Your Links
+                                <NavLink href={route('post.submit')} className={"px-6"}
+                                         active={route().current('create')}>
+                                    Submit new post
                                 </NavLink>
                             </div>
                         </div>

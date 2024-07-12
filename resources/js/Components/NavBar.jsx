@@ -1,8 +1,7 @@
-import React from 'react'
-import {Head, Link} from "@inertiajs/react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import NavLink from "@/Components/NavLink";
+import {Link} from "@inertiajs/react";
 import Dropdown from "@/Components/Dropdown";
+import React from 'react'
 
 export default function NavBar({auth}) {
     return (
