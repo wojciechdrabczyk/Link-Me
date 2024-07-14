@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Post extends Model
 {
     use HasFactory;
+    public $fillable = ['title', 'body'];
     public function author(): BelongsTo {
         return $this->belongsTo(User::class, 'user_id');
     }
+
 }

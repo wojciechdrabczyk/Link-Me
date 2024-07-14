@@ -47,8 +47,6 @@ export default function NavBar({auth}) {
                                         </span>
                                                         </Dropdown.Trigger>
                                                         <Dropdown.Content>
-                                                            <Dropdown.Link
-                                                                href={route('dashboard')}>Dashboard</Dropdown.Link>
                                                             <Dropdown.Link href={route('logout')} method="post"
                                                                            as="button">
                                                                 Log Out

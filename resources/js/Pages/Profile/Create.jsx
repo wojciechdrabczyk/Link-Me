@@ -17,12 +17,6 @@ export default function Create({auth, header, children}) {
                                         className={"border-slate-300 border-b-2 sm:-my-px hover:bg-orange-50 hover:border-orange-400 transition-all h-full " + route().current('index') ? "border-orange-400" : ""}/>
                                 </Link>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:flex">
-                                <NavLink href={route('dashboard')} className={"px-6"}
-                                         active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                            </div>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
