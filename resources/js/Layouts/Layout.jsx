@@ -132,7 +132,7 @@ export default function Layout({header, children}) {
                 </header>
             )}
 
-            <main className={"mt-8 flex"}>{children}</main>
+            <main className={"mt-8 flex justify-center"}>{children}</main>
         </div>
     );
 }

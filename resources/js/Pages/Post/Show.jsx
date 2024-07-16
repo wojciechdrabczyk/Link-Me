@@ -1,4 +1,3 @@
-
 export default function Show({post}) {
     return (
         <div>
