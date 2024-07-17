@@ -8,7 +8,7 @@ export default function Welcome({auth, posts}) {
         router.visit(`?page=${page}`, {replace: true, preserveScroll: true});
     }
 
-    console.log(posts)
+    // console.log(posts)
 
     return (
         <div className={"mx-auto w-full"}

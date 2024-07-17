@@ -8,7 +8,7 @@ import {Link, usePage} from '@inertiajs/react';
 export default function Layout({header, children}) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const {auth} = usePage().props
-    console.log(auth);
+    // console.log(auth);
 
     return (
         <div className="min-h-screen bg-gray-100">

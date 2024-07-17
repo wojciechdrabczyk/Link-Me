@@ -14,7 +14,7 @@ export default function Create() {
     const onSubmit = (e) => {
         e.preventDefault();
         post(route('post.store'))
-        console.log(data)
+        // console.log(data)
     }
     return (
         <div className={"mx-auto w-96 mt-4"}

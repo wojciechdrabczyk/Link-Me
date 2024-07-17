@@ -1,4 +1,13 @@
-export default function Show({post}) {
+import {Link, useForm, usePage} from "@inertiajs/react";
+
+export default function Show({post, auth}) {
+
+    console.log(useForm());
+    const { delete: destroy } = useForm();
+    function handleDelete(e) {
+        e.preventDefault();
+        destroy(post.id);
+    }
     return (
         <div>
             <div>
@@ -8,16 +17,18 @@ export default function Show({post}) {
                 {post.body}
             </div>
             <div className={"flex flex-row gap-2"}>
-                <form action="">
-                    <button className={"bg-red-400 rounded-md text-sm px-4 py-1 text-white"}>
+                {post.user_id === auth.user?.id && (
+                    <button className={"bg-red-400 rounded-md text-sm px-4 py-1 text-white"} onClick={handleDelete}>
                         Delete
                     </button>
-                </form>
-                <form action="">
-                    <button className={"bg-blue-400 rounded-md text-sm px-4 py-1 text-white"}>
-                        Edit
-                    </button>
-                </form>
+                )}
+                {post.user_id === auth.user?.id && (
+                    <Link href={route('post.edit', post.id)}>
+                        <button className={"bg-blue-400 rounded-md text-sm px-4 py-1 text-white"}>
+                            Edit
+                        </button>
+                    </Link>
+                )}
             </div>
         </div>
     )
