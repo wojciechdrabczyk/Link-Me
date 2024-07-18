@@ -31,30 +31,28 @@ class PostController extends Controller
 
     public function destroy(Post $post, Request $request)
     {
-        $user = $request->user();
-        if ($post->user_id === $user->id) {
-            $post->delete();
-        } else {
-            throw ValidationException::withMessages(['user_id' => 'Only the author of this post can delete it.']);
+        if ($request->user()->cannot('delete', $post)) {
+            abort(403, "No permission to delete other person's post.");
         }
-
+        $post->delete();
         return to_route('index');
     }
 
     public function update(Post $post, Request $request)
     {
-        $user = $request->user();
-        if($post->user_id === $user->id) {
-            $data = $request->all();
-            $post->update($data);
-        } else {
-            abort('400', 'Only the author of this post can update it.');
+        if ($request->user()->cannot('update', $post)) {
+            abort(403, "No permission to update other person's post.");
         }
+        $data = $request->all();
+        $post->update($data);
         return to_route('index');
     }
 
-    public function edit(Post $post)
+    public function edit(Post $post, Request $request)
     {
+        if ($request->user()->cannot('edit', $post)) {
+            abort(403, "No permission to edit other person's post.");
+        }
         return inertia('Post/Edit', ['post' => $post]);
     }
 }
