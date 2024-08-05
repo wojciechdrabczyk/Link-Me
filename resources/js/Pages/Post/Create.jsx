@@ -7,7 +7,7 @@ import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import {Textarea} from "flowbite-react";
 
 export default function Create() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const {data, setData, post, processing, errors, reset} = useForm({
         title: '',
         body: '',
     });
@@ -19,48 +19,48 @@ export default function Create() {
     return (
         <div className={"mx-auto w-96 mt-4"}
         >
-            <Head title="Create new post" />
-                <form onSubmit={onSubmit} method="post">
-                    <div>
-                        <InputLabel htmlFor="title" value="Title"/>
+            <Head title="Create new post"/>
+            <form onSubmit={onSubmit} method="post">
+                <div>
+                    <InputLabel htmlFor="title" value="Title"/>
 
-                        <TextInput
-                            id="title"
-                            name="title"
-                            value={data.title}
-                            className="mt-1 block w-full"
-                            autoComplete="username"
-                            isFocused={true}
-                            onChange={(e) => setData('title', e.target.value)}
-                        />
+                    <Textarea
+                        id="title"
+                        name="title"
+                        value={data.title}
+                        className="mt-1 block w-full"
+                        autoComplete="current-title"
+                        isFocused={true}
+                        onChange={(e) => setData('title', e.target.value)}
+                    />
 
-                        <InputError message={errors.title} className="mt-2"/>
-                    </div>
+                    <InputError message={errors.title} className="mt-2"/>
+                </div>
 
-                    <div className="mt-4">
-                        <InputLabel htmlFor="body" value="Body"/>
+                <div className="mt-4">
+                    <InputLabel htmlFor="body" value="Body"/>
 
-                        <Textarea
-                            id="body"
-                            name="body"
-                            value={data.body}
-                            className="mt-1 block w-full"
-                            autoComplete="current-body"
-                            onChange={(e) => setData('body', e.target.value)}
-                        />
-
-
-                        <InputError message={errors.body} className="mt-2"/>
-                    </div>
+                    <Textarea
+                        id="body"
+                        name="body"
+                        value={data.body}
+                        className="mt-1 block w-full"
+                        autoComplete="current-body"
+                        onChange={(e) => setData('body', e.target.value)}
+                    />
 
 
-                    <div className="flex items-center justify-end mt-4">
+                    <InputError message={errors.body} className="mt-2"/>
+                </div>
 
-                        <PrimaryButton className="ms-4" disabled={processing}>
-                            Submit
-                        </PrimaryButton>
-                    </div>
-                </form>
+
+                <div className="flex items-center justify-end mt-4">
+
+                    <PrimaryButton className="ms-4" disabled={processing}>
+                        Submit
+                    </PrimaryButton>
+                </div>
+            </form>
         </div>
     );
 }
