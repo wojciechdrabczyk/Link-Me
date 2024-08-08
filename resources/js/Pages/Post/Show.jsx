@@ -1,7 +1,7 @@
 import {Link, useForm, usePage} from "@inertiajs/react";
 import React from "react";
 
-export default function Show({post, auth}) {
+export default function Show({post, auth, likes}) {
     const imageSrc = post.thumbnail ? post.thumbnail : `https://picsum.photos/id/${post.id}/300/200`;
     console.log(useForm());
     const {delete: destroy} = useForm();
@@ -24,17 +24,23 @@ export default function Show({post, auth}) {
                 {post.body}
                 <div className={"flex flex-row gap-2 text-xs p-2"}>
                     {post.user_id === auth.user?.id && (
-                        <button className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"} onClick={handleDelete}>
+                        <button
+                            className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"}
+                            onClick={handleDelete}>
                             Delete
                         </button>
                     )}
                     {post.user_id === auth.user?.id && (
                         <Link href={route('post.edit', post.id)}>
-                            <button className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"}>
+                            <button
+                                className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"}>
                                 Edit
                             </button>
                         </Link>
                     )}
+                </div>
+                <div>
+                    likes: {likes}
                 </div>
             </div>
         </div>

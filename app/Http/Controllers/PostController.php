@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -26,7 +27,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return inertia('Post/Show', ['post' => $post]);
+        return inertia('Post/Show', ['post' => $post, 'likes' => $post->voteCount()]);
     }
 
     public function destroy(Post $post, Request $request)
@@ -55,4 +56,29 @@ class PostController extends Controller
         }
         return inertia('Post/Edit', ['post' => $post]);
     }
+
+    public function like(Post $post, Request $request)
+    {
+
+        $existing = Vote::whereUserId($request->user()->id)->wherePostId($post->id)->first();
+        if ($existing) {
+            $existing->like = 1;
+            $existing->save();
+        } else {
+            Vote::create(['user_id' => $request->user()->id, 'like' => 1, 'post_id' => $post->id]);
+        }
+    }
+
+    public function dislike(Post $post, Request $request)
+    {
+
+        $existing = Vote::where('user_id', '=', $request->user()->id)->where('post_id', '=', $post->id)->first();
+        if ($existing) {
+            $existing->like = -1;
+            $existing->save();
+        } else {
+            Vote::create(['user_id' => $request->user()->id, 'like' => -1, 'post_id' => $post->id]);
+        }
+    }
 }
+

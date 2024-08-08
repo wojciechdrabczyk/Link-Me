@@ -5,8 +5,7 @@ import { Head } from '@inertiajs/react';
 
 export default function Edit({ auth, mustVerifyEmail, status }) {
     return (
-        <div
-        >
+        <div>
             <Head title="Profile" />
 
             <div className="py-12">
