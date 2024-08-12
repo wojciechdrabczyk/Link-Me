@@ -1,18 +1,14 @@
 import {useForm} from "@inertiajs/react";
-import UpdatePasswordForm from "@/Pages/Profile/Partials/UpdatePasswordForm.jsx";
-import DeleteUserForm from "@/Pages/Profile/Partials/DeleteUserForm.jsx";
-import PrimaryButton from "@/Components/PrimaryButton.jsx";
 import {Transition} from "@headlessui/react";
-import InputLabel from "@/Components/InputLabel.jsx";
-import TextInput from "@/Components/TextInput.jsx";
-import InputError from "@/Components/InputError.jsx";
 import {Textarea} from "flowbite-react";
+import InputLabel from "@/Components/InputLabel.jsx";
+import InputError from "@/Components/InputError.jsx";
+import PrimaryButton from "@/Components/PrimaryButton.jsx";
 
 export default function Edit({post, auth, className = ''}) {
 
-    // console.log(useForm());
 
-    const {data, setData, patch, processing, errors, recentlySuccessful} = useForm({
+    const {data, setData, patch, errors, recentlySuccessful} = useForm({
         title: post.title,
         body: post.body,
     });

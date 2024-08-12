@@ -1,14 +1,20 @@
 import {Link, useForm, usePage} from "@inertiajs/react";
 import React from "react";
+import Comment from "@/Pages/Post/Comment.jsx";
 
-export default function Show({post, auth, likes}) {
+export default function Show({post, auth, likes, dislike, comments}) {
     const imageSrc = post.thumbnail ? post.thumbnail : `https://picsum.photos/id/${post.id}/300/200`;
     console.log(useForm());
-    const {delete: destroy} = useForm();
+    const {delete: destroy, get: sendFn} = useForm();
 
     function handleDelete(e) {
         e.preventDefault();
         destroy(post.id);
+    }
+    function likeButton(e){
+        e.preventDefault();
+        sendFn(route('post.like', post.id))
+
     }
 
     return (
@@ -39,8 +45,13 @@ export default function Show({post, auth, likes}) {
                         </Link>
                     )}
                 </div>
+                    <button
+                        className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"}
+                        onClick={likeButton}>
+                        Like: {likes}
+                    </button>
                 <div>
-                    likes: {likes}
+                    <Comment post={post} comments={comments}/>
                 </div>
             </div>
         </div>

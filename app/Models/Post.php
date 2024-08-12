@@ -29,4 +29,9 @@ class Post extends Model
     {
         return DB::table('post_likes')->where('post_id', '=', $this->id)->sum('like');
     }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

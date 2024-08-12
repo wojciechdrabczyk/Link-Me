@@ -27,7 +27,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return inertia('Post/Show', ['post' => $post, 'likes' => $post->voteCount()]);
+        return inertia('Post/Show', ['post' => $post, 'likes' => $post->voteCount(), 'comments' => $post->comments()->with('user')->get()]);
     }
 
     public function destroy(Post $post, Request $request)
@@ -79,6 +79,16 @@ class PostController extends Controller
         } else {
             Vote::create(['user_id' => $request->user()->id, 'like' => -1, 'post_id' => $post->id]);
         }
+    }
+
+    public function comment(Request $request, Post $post)
+    {
+        $validated = $request->validate([
+            'body' => 'required',
+        ]);
+        $user = $request->user();
+        $post->comments()->create([...$validated, 'user_id' => $user->id]);
+        return to_route('post.show', $post->id);
     }
 }
 
