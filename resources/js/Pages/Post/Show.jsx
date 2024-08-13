@@ -1,56 +1,71 @@
 import {Link, useForm, usePage} from "@inertiajs/react";
 import React from "react";
 import Comment from "@/Pages/Post/Comment.jsx";
+import {PiHeartFill} from "react-icons/pi";
 
 export default function Show({post, auth, likes, dislike, comments}) {
-    const imageSrc = post.thumbnail ? post.thumbnail : `https://picsum.photos/id/${post.id}/300/200`;
-    console.log(useForm());
     const {delete: destroy, get: sendFn} = useForm();
+    const imageSrc = post.thumbnail ? post.thumbnail : `https://picsum.photos/id/${post.id}/300/200`;
+
+    // console.log(useForm());
 
     function handleDelete(e) {
         e.preventDefault();
         destroy(post.id);
     }
-    function likeButton(e){
+
+    function likeButton(e) {
         e.preventDefault();
         sendFn(route('post.like', post.id))
 
     }
 
+    function dislikeButton(e) {
+        e.preventDefault();
+        sendFn(route('post.dislike', post.id))
+
+    }
+
     return (
-        <div className={"mx-auto w-96 mt-4"}>
-            <div className={"w-full p-4 text-xl flex flex-row items-center gap-10 px-4 sm:px-6 lg:px-8"}>
-                <img src={imageSrc} className={"w-[90px] h-[70px] object-cover flex flex-row gap-4"}
-                     alt="Placeholder image"/>
-                <div className={""}>
+        <div className={"mx-auto w-2/6 t-4"}>
+            <div className={"flex items-center justify-start font-bold"}>
+                <div className={"py-2"}>
                     {post.title}
                 </div>
             </div>
             <div className={""}>
-                {post.body}
-                <div className={"flex flex-row gap-2 text-xs p-2"}>
+                <span>
+                <img src={imageSrc} className={"w-[90px] h-[70px] object-cover"}
+                     alt="Placeholder image"/>
+                </span>
+                <span className={"flex flex-row py-2 justify-start"}>
+                    {post.body}
+                </span>
+                <div className={"flex flex-row text-sm font-semibold gap-1 justify-start"}>
+                    <button
+                        className={"flex flex-col items-center rounded-full px-2 py-1 bg-gray-200"}
+                        onClick={likeButton}>
+                        <PiHeartFill></PiHeartFill>
+                        {likes}
+                    </button>
                     {post.user_id === auth.user?.id && (
-                        <button
-                            className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"}
-                            onClick={handleDelete}>
-                            Delete
-                        </button>
-                    )}
-                    {post.user_id === auth.user?.id && (
-                        <Link href={route('post.edit', post.id)}>
+                        <Link href={route('post.edit', post.id)}
+                              className="px-2 py-1 bg-gray-200 rounded-full flex items-center px-sm">
                             <button
-                                className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"}>
+                                className={"bg-gray-200 rounded-full"}>
                                 Edit
                             </button>
                         </Link>
                     )}
+                    {post.user_id === auth.user?.id && (
+                        <button
+                            className={"px-2 py-1 bg-gray-200 rounded-full "}
+                            onClick={handleDelete}>
+                            Delete
+                        </button>
+                    )}
                 </div>
-                    <button
-                        className={"bg-gray-300 rounded-md px-1.5 py-1 border-md flex flex-row justify-center items-center mr-sm h-xl font-semibold relative text-12 button-secondary px-sm"}
-                        onClick={likeButton}>
-                        Like: {likes}
-                    </button>
-                <div>
+                <div className={""}>
                     <Comment post={post} comments={comments}/>
                 </div>
             </div>

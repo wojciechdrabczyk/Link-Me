@@ -15,10 +15,10 @@ export default function Comment({post, comments}) {
 
     return (
         <div>
-            <div className={"space-y-6"}>
-                <div className={"max-w-7xl sm:p-8  sm:rounded-lg"}>
-                    <form onSubmit={onSubmit} method="post" className={"mt-6 space-y-6"}>
-                        <div className="mt-4">
+            <div className={"flex flex-row items-center justify-center"}>
+                <div className={"mx-auto w-full t-4"}>
+                    <form onSubmit={onSubmit} method="post" className={"mt-4 space-y-4"}>
+                        <div>
                             <Textarea
                                 id="body"
                                 name="body"
@@ -26,12 +26,13 @@ export default function Comment({post, comments}) {
                                 className="mt-1 block w-full"
                                 autoComplete="current-body"
                                 onChange={(e) => setData('body', e.target.value)}
+                                placeholder="Add a comment"
                             />
                             <InputError message={errors.body} className="mt-2"/>
                         </div>
-                        <div className="flex items-center gap-4 mt-4">
+                        <div>
                             <PrimaryButton disabled={processing}>
-                                Submit
+                                Comment
                             </PrimaryButton>
                         </div>
                         <div>
@@ -51,5 +52,4 @@ export default function Comment({post, comments}) {
             </div>
         </div>
     );
-
 }
