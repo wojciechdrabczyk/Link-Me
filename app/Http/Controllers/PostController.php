@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
@@ -19,9 +20,14 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => 'required|min:2|max:255',
             'body' => 'required',
+            'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
         ]);
+        $path = $request->file('thumbnail')?->storePublicly('public');
+        if ($path !== null) {
+            $path = Storage::url($path);
+        }
         $user = $request->user();
-        $user->posts()->create($validated);
+        $user->posts()->create([...$validated, 'thumbnail' => $path]);
         return to_route('index');
     }
 
@@ -44,8 +50,11 @@ class PostController extends Controller
         if ($request->user()->cannot('update', $post)) {
             abort(403, "No permission to update other person's post.");
         }
-        $data = $request->all();
-        $post->update($data);
+        $validated = $request->validate([
+            'title' => 'required|min:2|max:255',
+            'body' => 'required',
+        ]);
+        $post->update($validated);
         return to_route('index');
     }
 

@@ -9,7 +9,11 @@ export default function Create() {
     const {data, setData, post, processing, errors, reset} = useForm({
         title: '',
         body: '',
-    });
+        thumbnail: null,
+    })
+    const handleThumbnail = (e) => {
+        setData('thumbnail', e.target.files[0]);
+    }
     const onSubmit = (e) => {
         e.preventDefault();
         post(route('post.store'))
@@ -21,9 +25,6 @@ export default function Create() {
                 <div className={"max-w-7xl sm:p-8 bg-white shadow sm:rounded-lg"}>
                     <header>
                         <h2 className="text-lg font-medium text-gray-900">Create post</h2>
-                        <p className="mt-1 text-sm text-gray-600">
-                            Enter required fields.
-                        </p>
                     </header>
                     <Head title="Create new post"/>
                     <form onSubmit={onSubmit} method="post" className={"mt-6 space-y-6"}>
@@ -36,14 +37,13 @@ export default function Create() {
                                 value={data.title}
                                 className="mt-1 block w-full"
                                 autoComplete="current-title"
-                                isFocused={true}
                                 onChange={(e) => setData('title', e.target.value)}
                             />
 
                             <InputError message={errors.title} className="mt-2"/>
                         </div>
 
-                        <div className="mt-4">
+                        <div>
                             <InputLabel htmlFor="body" value="Body"/>
 
                             <Textarea
@@ -58,6 +58,23 @@ export default function Create() {
 
                             <InputError message={errors.body} className="mt-2"/>
                         </div>
+
+                        <div>
+
+                            <input
+                                type="file"
+                                title=" "
+                                id="thumbnail"
+                                style={{display: 'none'}}
+                                name="thumbnail"
+                                className="mt-1 rounded-md bg-amber-600"
+                                onChange={handleThumbnail}
+                            />
+                            <label htmlFor="thumbnail" className={"mt-1 rounded-md bg-amber-600 p-4 text-white"}>Select file</label>
+                            {data.thumbnail?.name}
+                            <InputError message={errors.thumbnail} className="mt-2"/>
+                        </div>
+
 
 
                         <div className="flex items-center gap-4 mt-4">

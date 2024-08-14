@@ -13,7 +13,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    public $fillable = ['title', 'body'];
+    public $fillable = ['title', 'body', 'thumbnail'];
 
     public function author(): BelongsTo
     {
@@ -34,4 +34,5 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
 }

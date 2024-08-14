@@ -41,7 +41,6 @@ export default function Edit({post, auth, className = ''}) {
                                 value={data.title}
                                 onChange={(e) => setData('title', e.target.value)}
                                 required
-                                isFocused
                             />
 
                             <InputError className="mt-2" message={errors.title}/>

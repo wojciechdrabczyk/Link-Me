@@ -5,7 +5,7 @@ import {PiHeartFill} from "react-icons/pi";
 
 export default function Show({post, auth, likes, dislike, comments}) {
     const {delete: destroy, get: sendFn} = useForm();
-    const imageSrc = post.thumbnail ? post.thumbnail : `https://picsum.photos/id/${post.id}/300/200`;
+    const imageSrc = post.thumbnail;
 
     // console.log(useForm());
 
@@ -33,10 +33,12 @@ export default function Show({post, auth, likes, dislike, comments}) {
                     {post.title}
                 </div>
             </div>
-            <div className={""}>
+            <div>
                 <span>
-                <img src={imageSrc} className={"w-[90px] h-[70px] object-cover"}
-                     alt="Placeholder image"/>
+                    {imageSrc &&
+                        <img src={imageSrc} className={"w-[90px] h-[70px] object-cover"}
+                             alt="placeholder image"/>
+                    }
                 </span>
                 <span className={"flex flex-row py-2 justify-start"}>
                     {post.body}
