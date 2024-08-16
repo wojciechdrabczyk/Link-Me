@@ -2,10 +2,12 @@ import {Link, useForm, usePage} from "@inertiajs/react";
 import React from "react";
 import Comment from "@/Pages/Post/Comment.jsx";
 import {PiHeartFill} from "react-icons/pi";
+import {FaRegComments} from "react-icons/fa6";
 
 export default function Show({post, auth, likes, dislike, comments}) {
     const {delete: destroy, get: sendFn} = useForm();
-    const imageSrc = post.thumbnail;
+    const imageSrc = post.thumbnail ? <img src={post.thumbnail} className={"w-[90px] h-[70px] object-cover"}
+                                           alt="Placeholder image"/> : null;
 
     // console.log(useForm());
 
@@ -20,11 +22,11 @@ export default function Show({post, auth, likes, dislike, comments}) {
 
     }
 
-    function dislikeButton(e) {
-        e.preventDefault();
-        sendFn(route('post.dislike', post.id))
-
-    }
+    // function dislikeButton(e) {
+    //     e.preventDefault();
+    //     sendFn(route('post.dislike', post.id))
+    //
+    // }
 
     return (
         <div className={"mx-auto w-2/6 t-4"}>
@@ -35,10 +37,7 @@ export default function Show({post, auth, likes, dislike, comments}) {
             </div>
             <div>
                 <span>
-                    {imageSrc &&
-                        <img src={imageSrc} className={"w-[90px] h-[70px] object-cover"}
-                             alt="placeholder image"/>
-                    }
+                    {imageSrc}
                 </span>
                 <span className={"flex flex-row py-2 justify-start"}>
                     {post.body}
