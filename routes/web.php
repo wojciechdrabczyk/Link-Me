@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $posts = Post::latest()->with('author')->paginate(8);
+    $posts = Post::latest()->with('author')->withCount('postVotes')->paginate(8);
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{post}/like', [PostController::class, 'like'])->name('post.like');
     Route::get('/posts/{post}/dislike', [PostController::class, 'dislike'])->name('post.dislike');
     Route::post('/posts/{post}/comment', [PostController::class, 'comment'])->name('post.comment');
+    Route::get('/comments/{comment}/heart', [PostController::class, 'heart'])->name('comment.heart');
     Route::patch('/posts/{post}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.destroy');
 });

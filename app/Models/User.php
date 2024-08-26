@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function votes(): BelongsToMany
+    public function postVotes(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'post_likes')->withPivot('like');
     }

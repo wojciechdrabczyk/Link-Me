@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\CommentVote;
 use App\Models\Post;
 use App\Models\Vote;
 use Illuminate\Http\Request;
@@ -33,7 +35,7 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return inertia('Post/Show', ['post' => $post, 'likes' => $post->voteCount(), 'comments' => $post->comments()->with('user')->get()]);
+        return inertia('Post/Show', ['post' => $post, 'likes' => $post->voteCount(), 'comments' => $post->comments()->with('user')->withCount('votes')->get()]);
     }
 
     public function destroy(Post $post, Request $request)
@@ -71,8 +73,7 @@ class PostController extends Controller
 
         $existing = Vote::whereUserId($request->user()->id)->wherePostId($post->id)->first();
         if ($existing) {
-            $existing->like = 1;
-            $existing->save();
+            $existing->delete();
         } else {
             Vote::create(['user_id' => $request->user()->id, 'like' => 1, 'post_id' => $post->id]);
         }
@@ -98,6 +99,16 @@ class PostController extends Controller
         $user = $request->user();
         $post->comments()->create([...$validated, 'user_id' => $user->id]);
         return to_route('post.show', $post->id);
+    }
+
+    public function heart(Comment $comment, Request $request)
+    {
+        $existing = CommentVote::whereUserId($request->user()->id)->whereCommentId($comment->id)->first();
+        if ($existing) {
+            $existing->delete();
+        } else {
+            CommentVote::create(['user_id' => $request->user()->id, 'heart' => 1, 'comment_id' => $comment->id]);
+        }
     }
 }
 

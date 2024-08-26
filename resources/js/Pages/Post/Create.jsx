@@ -74,6 +74,8 @@ export default function Create() {
                                    className={"rounded-md bg-gray-800 p-2 text-white text-sm hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"}>Choose
                                 a file</label>
                             {data.thumbnail?.name}
+
+                            <InputError message={errors.thumbnail} className="mt-2"/>
                         </div>
 
                         <div className="flex items-center gap-4 py-2">

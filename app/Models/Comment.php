@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class Comment extends Model
@@ -24,5 +26,10 @@ class Comment extends Model
     public function parent(): ?BelongsTo
     {
         return $this->belongsTo(Comment::class, 'parent_id');
+    }
+
+    public function votes(): HasMany
+    {
+        return $this->hasMany(CommentVote::class);
     }
 }

@@ -2,7 +2,6 @@ import {Link, useForm, usePage} from "@inertiajs/react";
 import React from "react";
 import Comment from "@/Pages/Post/Comment.jsx";
 import {PiHeartFill} from "react-icons/pi";
-import {FaRegComments} from "react-icons/fa6";
 
 export default function Show({post, auth, likes, dislike, comments}) {
     const {delete: destroy, get: sendFn} = useForm();
@@ -44,10 +43,10 @@ export default function Show({post, auth, likes, dislike, comments}) {
                 </span>
                 <div className={"flex flex-row text-sm font-semibold gap-1 justify-start"}>
                     <button
-                        className={"flex flex-col items-center rounded-full px-2 py-1 bg-gray-200"}
+                        className={"flex flex-row items-center rounded-full px-2 py-2 gap-1 bg-gray-200"}
                         onClick={likeButton}>
                         <PiHeartFill></PiHeartFill>
-                        {likes}
+                        {likes > 0 && likes}
                     </button>
                     {post.user_id === auth.user?.id && (
                         <Link href={route('post.edit', post.id)}

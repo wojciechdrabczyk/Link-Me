@@ -23,7 +23,6 @@ export default function Date({post}) {
 
                 {dayjs(post.created_at).fromNow()}
         </span>
-            {" by " + post.author.name}
         </span>
     )
 }

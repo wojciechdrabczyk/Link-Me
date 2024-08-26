@@ -20,9 +20,9 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function votes(): BelongsToMany
+    public function postVotes(): HasMany
     {
-        return $this->belongsToMany(Vote::class)->withPivot('like');
+        return $this->hasMany(Vote::class);
     }
 
     public function voteCount(): int
@@ -34,5 +34,4 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
-
 }
